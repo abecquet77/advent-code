@@ -37,29 +37,22 @@ def part_two():
     with open("2023/day_6/input") as f:
         first_line = f.readline().strip('\n')
         
-        races_time = ''.join(re.findall('\d+', first_line))
+        race_total_duration = int(''.join(re.findall('\d+', first_line)))
 
         second_line = f.readline().strip('\n')
 
-        races_distance = ''.join(re.findall('\d+', second_line))
+        record = int(''.join(re.findall('\d+', second_line)))
 
-        races = {races_time: races_distance}
+        results={}
 
-        ways=1
+        for hold_duration in range(1,race_total_duration+1):
+            speed=hold_duration
+            race_duration=race_total_duration-hold_duration
+            distance=speed*race_duration
+            if(distance>record):
+                results[hold_duration]=distance
 
-        for j in races:
-            results={}
-            race_total_duration=int(j)
-            record=int(races[j])
-
-            for hold_duration in range(1,race_total_duration+1):
-                speed=hold_duration
-                race_duration=race_total_duration-hold_duration
-                distance=speed*race_duration
-                if(distance>record):
-                    results[hold_duration]=distance
-
-            ways=ways*len(results)
+        ways=len(results)
 
     return ways
 
